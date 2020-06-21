@@ -1,7 +1,8 @@
-tool
-extends Control
+extends Node
 
-signal end_turn
+signal hp_changed(val)
+signal ap_changed(val)
+signal mp_changed(val)
 
 export var max_hp = 25
 export var max_ap = 3
@@ -12,10 +13,13 @@ var ap = max_ap setget set_ap
 var mp = max_mp setget set_mp
 
 func set_hp(val):
-	pass
+	hp = min(val, max_hp)
+	emit_signal("hp_changed", hp)
 
 func set_ap(val):
-	pass
+	ap = min(val, max_ap)
+	emit_signal("ap_changed", ap)
 	
 func set_mp(val):
-	pass
+	mp = min(val, max_mp)
+	emit_signal("mp_changed", mp)

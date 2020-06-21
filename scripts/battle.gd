@@ -1,7 +1,8 @@
 extends Node2D
 
 onready var enemy = $enemy
-onready var sword = $ui/base/swordBtn
+onready var enemy_player = $enemy/animationPlayer
+onready var sword = $ui/base/grid/swordBtn
 
 func _on_swordBtn_pressed():
 	if enemy != null:

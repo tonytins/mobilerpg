@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://sprites/Mobile RPG Mockup.png" type="Texture" id=1]
 [ext_resource path="res://sprites/Dungeon.png" type="Texture" id=2]
@@ -6,9 +6,13 @@
 [ext_resource path="res://scripts/battle.gd" type="Script" id=4]
 [ext_resource path="res://styles/game.theme" type="Theme" id=5]
 [ext_resource path="res://scripts/stats.gd" type="Script" id=6]
+[ext_resource path="res://scripts/statsPanel.gd" type="Script" id=7]
 
 [node name="battle" type="Node2D"]
 script = ExtResource( 4 )
+
+[node name="stats" type="Node" parent="."]
+script = ExtResource( 6 )
 
 [node name="background" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -18,7 +22,6 @@ __meta__ = {
 }
 
 [node name="mockup" type="Sprite" parent="."]
-visible = false
 self_modulate = Color( 1, 1, 1, 0.196078 )
 texture = ExtResource( 1 )
 centered = false
@@ -27,7 +30,7 @@ __meta__ = {
 }
 
 [node name="enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 45, 33 )
+position = Vector2( 49, 32 )
 
 [node name="ui" type="CanvasLayer" parent="."]
 
@@ -40,25 +43,53 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="stats" type="Control" parent="ui/base"]
-margin_left = 3.0
-margin_top = 52.0
-margin_right = 85.0
-margin_bottom = 71.0
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="panel" type="Panel" parent="ui/base"]
+[node name="statsPnl" type="Panel" parent="ui/base"]
 anchor_left = 0.0333333
 anchor_top = 0.325
-anchor_right = 0.966667
+anchor_right = 0.977778
 anchor_bottom = 0.44375
 margin_left = -2.38419e-07
+script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
+
+[node name="statsCtr" type="HBoxContainer" parent="ui/base/statsPnl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="hpLbl" type="Label" parent="ui/base/statsPnl/statsCtr"]
+margin_right = 25.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "HP
+25"
+align = 1
+uppercase = true
+
+[node name="mpLbl" type="Label" parent="ui/base/statsPnl/statsCtr"]
+margin_left = 29.0
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Mp
+3"
+align = 1
+uppercase = true
+
+[node name="apLbl" type="Label" parent="ui/base/statsPnl/statsCtr"]
+margin_left = 58.0
+margin_right = 85.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Ap
+10"
+align = 1
+uppercase = true
 
 [node name="panel2" type="Panel" parent="ui/base"]
 anchor_left = 0.0333333
@@ -109,5 +140,8 @@ text = "Block"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="ap_changed" from="stats" to="ui/base/statsPnl" method="_on_stats_ap_changed"]
+[connection signal="hp_changed" from="stats" to="ui/base/statsPnl" method="_on_stats_hp_changed"]
+[connection signal="mp_changed" from="stats" to="ui/base/statsPnl" method="_on_stats_mp_changed"]
 [connection signal="died" from="enemy" to="." method="_on_enemy_died"]
 [connection signal="pressed" from="ui/base/grid/swordBtn" to="." method="_on_swordBtn_pressed"]
