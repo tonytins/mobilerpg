@@ -27,13 +27,13 @@ func start_player_turn():
 	health_btn.disabled = false
 	block_btn.disabled = false
 	
-	stats.hp = stats.max_ap
+	stats.ap = stats.max_ap
 	yield(stats, "end_turn")
 	start_enemy_turn()
 
 func _on_swordBtn_pressed():
 	if enemy != null:
-		enemy.hp -= 4
+		enemy.take_damange(4)
 		stats.ap -= 1
 
 func _on_enemy_died():
