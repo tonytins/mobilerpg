@@ -32,7 +32,7 @@ window/stretch/aspect="keep"
 [gui]
 
 theme/custom="res://styles/game.theme"
-theme/custom_font="res://styles/pixelrpg-6px.tres"
+theme/custom_font="res://fonts/pixelrpg-6px.tres"
 
 [importer_defaults]
 
