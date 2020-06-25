@@ -4,7 +4,7 @@
 [ext_resource path="res://scripts/enemy.gd" type="Script" id=2]
 [ext_resource path="res://styles/game.theme" type="Theme" id=3]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "attack"
 tracks/0/type = "value"
 tracks/0/path = NodePath("rat:position")
@@ -19,8 +19,7 @@ tracks/0/keys = {
 "values": [ Vector2( -4, 0 ), Vector2( 0, -3 ), Vector2( 0, 3 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "shake"
+[sub_resource type="Animation" id=2]
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -56,5 +55,5 @@ __meta__ = {
 }
 
 [node name="animationPlayer" type="AnimationPlayer" parent="."]
-anims/attack = SubResource( 2 )
-anims/shake = SubResource( 1 )
+anims/attack = SubResource( 1 )
+anims/shake = SubResource( 2 )

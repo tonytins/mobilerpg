@@ -29,6 +29,11 @@ window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
+[gui]
+
+theme/custom="res://styles/game.theme"
+theme/custom_font="res://styles/pixelrpg-6px.tres"
+
 [importer_defaults]
 
 texture={

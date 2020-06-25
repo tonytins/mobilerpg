@@ -1,5 +1,7 @@
 extends Node
 
+signal end_turn
+
 signal hp_changed(val)
 signal ap_changed(val)
 signal mp_changed(val)
@@ -17,9 +19,12 @@ func set_hp(val):
 	emit_signal("hp_changed", hp)
 
 func set_ap(val):
-	ap = min(val, max_ap)
+	ap = clamp(val, 0, max_ap)
 	emit_signal("ap_changed", ap)
 	
+	if ap == 0:
+		emit_signal("end_turn")
+	
 func set_mp(val):
-	mp = min(val, max_mp)
+	mp = clamp(val, 0, max_mp)
 	emit_signal("mp_changed", mp)
