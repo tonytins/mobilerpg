@@ -3,9 +3,8 @@ extends "res://scripts/baseBtn.gd"
 const slash = preload("res://scenes/slash.tscn")
 
 func _on_pressed():
-	var main = get_tree().current_scene
-	var enemy = main.find_node("enemy")
-	var stats = main.find_node("stats")
+	var enemy = units.enemy
+	var stats = units.player
 	if enemy != null and stats != null:
 		create_slash(enemy.global_position)
 		enemy.take_damange(4)

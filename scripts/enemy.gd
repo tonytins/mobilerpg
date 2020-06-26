@@ -1,24 +1,28 @@
 extends Node2D
 
+const units = preload("res://resources/battleUnits.tres")
+
 signal died
 signal end_turn
 
 export var hp = 29 setget set_hp
 
-var target = null
-
 onready var hp_label = $hpLbl
 onready var player = $animationPlayer
 
+
 func _ready():
+	units.enemy = self
 	hp_label.text = str(hp) + "hp"
+	
+func _exit_tree():
+	units.enemy = null
 
 func attack(target):
 	yield(get_tree().create_timer(0.4), "timeout")
 	player.play("attack")
-	self.target = target
+	units.player.hp = target
 	yield(player, "animation_finished")
-	self.target = null
 	emit_signal("end_turn")
 
 func set_hp(new_hp):
@@ -26,7 +30,7 @@ func set_hp(new_hp):
 	hp_label.text = str(hp) + "hp"	
 
 func take_damange(amount):
-	hp -= amount
+	units.enemy.hp -= amount
 	if is_dead():
 		emit_signal("died")
 		queue_free()
@@ -34,7 +38,7 @@ func take_damange(amount):
 		player.play("shake")
 
 func deal_damage():
-	self.target.hp -= 4
+	units.player.hp -= 4
 		
 func is_dead():
 	return hp <= 0

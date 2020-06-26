@@ -8,9 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Resource",
+"class": "BattleUnits",
+"language": "GDScript",
+"path": "res://scripts/battleUnits.gd"
+} ]
 _global_script_class_icons={
-
+"BattleUnits": ""
 }
 
 [application]
@@ -33,7 +38,7 @@ window/stretch/aspect="keep"
 
 [gui]
 
-theme/custom="res://styles/game.theme"
+theme/custom="res://resources/game.theme"
 theme/custom_font="res://fonts/pixelrpg-6px.tres"
 
 [importer_defaults]

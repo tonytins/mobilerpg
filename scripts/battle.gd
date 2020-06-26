@@ -1,11 +1,11 @@
 extends Node2D
 
-onready var enemy = $enemy
-onready var stats = $stats
-onready var sword_btn = $ui/base/buttons/swordBtn
-onready var health_btn = $ui/base/buttons/healBtn
-onready var block_btn = $ui/base/buttons/blockBtn
+const units = preload("res://resources/battleUnits.tres")
+
 onready var buttons = $ui/base/buttons
+
+onready var enemy = units.enemy
+onready var stats = units.player
 
 func _ready():
 	start_player_turn()
@@ -13,7 +13,6 @@ func _ready():
 func start_enemy_turn():
 	for btn in buttons.get_children():
 		btn.disabled = true
-	
 	if enemy != null:
 		enemy.attack(stats)
 		yield(enemy, "end_turn")
