@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://sprites/Mobile RPG Mockup.png" type="Texture" id=1]
 [ext_resource path="res://sprites/Dungeon.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://scenes/swordBtn.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/stats.gd" type="Script" id=6]
 [ext_resource path="res://scripts/statsPanel.gd" type="Script" id=7]
+[ext_resource path="res://scenes/healBtn.tscn" type="PackedScene" id=8]
 
 [node name="battle" type="Node2D"]
 script = ExtResource( 4 )
@@ -101,7 +102,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="grid" type="GridContainer" parent="ui/base"]
+[node name="buttons" type="GridContainer" parent="ui/base"]
 anchor_left = 0.1
 anchor_top = 0.45625
 anchor_right = 0.911111
@@ -112,8 +113,13 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="swordBtn" parent="ui/base/grid" instance=ExtResource( 5 )]
+[node name="swordBtn" parent="ui/base/buttons" instance=ExtResource( 5 )]
 margin_right = 32.0
+margin_bottom = 13.0
+
+[node name="healBtn" parent="ui/base/buttons" instance=ExtResource( 8 )]
+margin_left = 40.0
+margin_right = 72.0
 margin_bottom = 13.0
 [connection signal="ap_changed" from="stats" to="ui/base/statsPnl" method="_on_stats_ap_changed"]
 [connection signal="hp_changed" from="stats" to="ui/base/statsPnl" method="_on_stats_hp_changed"]
