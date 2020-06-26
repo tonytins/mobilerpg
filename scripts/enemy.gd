@@ -18,7 +18,7 @@ func attack(target):
 	player.play("attack")
 	self.target = target
 	yield(player, "animation_finished")
-	self.target = null
+#	self.target = null
 	emit_signal("end_turn")
 
 func set_hp(new_hp):
@@ -34,7 +34,7 @@ func take_damange(amount):
 		player.play("shake")
 
 func deal_damage():
-	target -= 4
+	self.target.hp -= 4
 		
 func is_dead():
 	return hp <= 0
