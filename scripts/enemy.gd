@@ -5,7 +5,8 @@ const units = preload("res://resources/battleUnits.tres")
 signal died
 signal end_turn
 
-export var hp = 29 setget set_hp
+export var hp: int = 29 setget set_hp
+export var damage: int = 3
 
 onready var hp_label = $hpLbl
 onready var player = $animationPlayer
@@ -27,7 +28,8 @@ func attack(target):
 
 func set_hp(new_hp):
 	hp = new_hp
-	hp_label.text = str(hp) + "hp"	
+	if hp_label != null:
+		hp_label.text = str(hp) + "hp"	
 
 func take_damange(amount):
 	units.enemy.hp -= amount
@@ -38,7 +40,7 @@ func take_damange(amount):
 		player.play("shake")
 
 func deal_damage():
-	units.player.hp -= 4
+	units.player.hp -= damage
 		
 func is_dead():
 	return hp <= 0

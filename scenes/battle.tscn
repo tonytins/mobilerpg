@@ -1,16 +1,35 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://sprites/Mobile RPG Mockup.png" type="Texture" id=1]
 [ext_resource path="res://sprites/Dungeon.png" type="Texture" id=2]
-[ext_resource path="res://scenes/enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/slime.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/battle.gd" type="Script" id=4]
 [ext_resource path="res://scenes/swordBtn.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/stats.gd" type="Script" id=6]
 [ext_resource path="res://scripts/statsPanel.gd" type="Script" id=7]
 [ext_resource path="res://scenes/healBtn.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/rat.tscn" type="PackedScene" id=9]
+
+[sub_resource type="Animation" id=1]
+resource_name = "fadeToNewRoom"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("fade:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [node name="battle" type="Node2D"]
 script = ExtResource( 4 )
+enemies = [ ExtResource( 3 ), ExtResource( 9 ) ]
 
 [node name="stats" type="Node" parent="."]
 script = ExtResource( 6 )
@@ -31,8 +50,10 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 49, 32 )
+[node name="enemyPos" type="Position2D" parent="."]
+position = Vector2( 49, 32.0349 )
+
+[node name="slime" parent="enemyPos" instance=ExtResource( 3 )]
 
 [node name="ui" type="CanvasLayer" parent="."]
 
@@ -43,6 +64,22 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": true
 }
+
+[node name="nextRoomContainer" type="CenterContainer" parent="ui/base"]
+visible = false
+margin_right = 90.0
+margin_bottom = 49.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nextRoomBtn" type="Button" parent="ui/base/nextRoomContainer"]
+margin_left = 10.0
+margin_top = 18.0
+margin_right = 80.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 70, 13 )
+text = "Enter Next Room"
 
 [node name="statsPnl" type="Panel" parent="ui/base"]
 anchor_left = 0.0333333
@@ -121,7 +158,21 @@ margin_bottom = 13.0
 margin_left = 40.0
 margin_right = 72.0
 margin_bottom = 13.0
+
+[node name="fade" type="ColorRect" parent="ui"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": true
+}
+
+[node name="animationPlayer" type="AnimationPlayer" parent="ui"]
+anims/fadeToNewRoom = SubResource( 1 )
 [connection signal="ap_changed" from="stats" to="ui/base/statsPnl" method="_on_stats_ap_changed"]
 [connection signal="hp_changed" from="stats" to="ui/base/statsPnl" method="_on_stats_hp_changed"]
 [connection signal="mp_changed" from="stats" to="ui/base/statsPnl" method="_on_stats_mp_changed"]
-[connection signal="died" from="enemy" to="." method="_on_enemy_died"]
+[connection signal="pressed" from="ui/base/nextRoomContainer/nextRoomBtn" to="." method="_on_nextRoomBtn_pressed"]
